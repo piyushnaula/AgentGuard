@@ -282,7 +282,7 @@ LLM_MODEL=openai/gpt-oss-20b
 
 ### Option 3: Deploy to Vercel (Serverless)
 
-AgentGuard is pre-configured for Vercel serverless deployment using `vercel.json` and `api/index.py`:
+AgentGuard is pre-configured for modern Vercel serverless deployment using `pyproject.toml` (`[tool.vercel] entrypoint = "agentguard.main:app"`):
 
 #### Method A: Deploy via Vercel Dashboard (GitHub Integration)
 1. Push your repository to GitHub: `https://github.com/piyushnaula/AgentGuard`.
