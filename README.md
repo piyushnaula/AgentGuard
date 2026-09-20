@@ -280,6 +280,33 @@ LLM_MODEL=openai/gpt-oss-20b
 
 ---
 
+### Option 3: Deploy to Vercel (Serverless)
+
+AgentGuard is pre-configured for Vercel serverless deployment using `vercel.json` and `api/index.py`:
+
+#### Method A: Deploy via Vercel Dashboard (GitHub Integration)
+1. Push your repository to GitHub: `https://github.com/piyushnaula/AgentGuard`.
+2. Go to [vercel.com/new](https://vercel.com/new) and click **Import** next to your `AgentGuard` repository.
+3. In **Environment Variables**, add:
+   - `GROQ_API_KEY`: Your Groq Cloud API key (`gsk_...`).
+   - `LLM_MODEL`: `openai/gpt-oss-20b` (or preferred model).
+   - `DATABASE_URL`: *(Optional)* External PostgreSQL URL (e.g. from Neon or Supabase). If omitted, AgentGuard defaults to `/tmp/agentguard.db` in serverless memory.
+4. Click **Deploy**. Your dashboard and APIs will be live at `https://your-project.vercel.app` with instant global HTTPS and CDN caching!
+
+#### Method B: Deploy via Vercel CLI
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy to preview environment
+vercel
+
+# Deploy to production
+vercel --prod
+```
+
+---
+
 ## Interactive Web Dashboard & API Endpoints
 
 Once running, navigate to:

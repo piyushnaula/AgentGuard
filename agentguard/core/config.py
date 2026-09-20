@@ -29,8 +29,28 @@ class Settings(BaseSettings):
         return self.groq_api_key or self.grok_api_key or self.xai_api_key or self.llm_api_key
 
     @property
+    def effective_database_url(self) -> str:
+        # In Vercel or serverless environments, the root filesystem is read-only.
+        # Direct SQLite to /tmp unless an external database (Postgres, etc.) is configured.
+        import os
+
+        if (os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME")) and self.database_url.startswith("sqlite"):
+            if not self.database_url.startswith("sqlite:////tmp/"):
+                return "sqlite:////tmp/agentguard.db"
+        return self.database_url
+
+    @property
     def policy_path(self) -> Path:
-        return Path(self.policy_file)
+        path = Path(self.policy_file)
+        if path.is_absolute() and path.exists():
+            return path
+        if path.exists():
+            return path
+        # Fallback relative to project root
+        candidate = Path(__file__).resolve().parent.parent.parent / self.policy_file
+        if candidate.exists():
+            return candidate
+        return path
 
 
 @lru_cache
