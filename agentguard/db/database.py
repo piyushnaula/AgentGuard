@@ -17,10 +17,19 @@ db_url = settings.effective_database_url
 connect_args = {"check_same_thread": False} if db_url.startswith("sqlite") else {}
 
 # Ensure local sqlite database directory exists if path is specified
-if db_url.startswith("sqlite:////") or db_url.startswith("sqlite:///"):
+if db_url.startswith("sqlite"):
     clean_path = db_url.replace("sqlite:////", "/").replace("sqlite:///", "")
     if clean_path and clean_path != ":memory:":
-        Path(clean_path).parent.mkdir(parents=True, exist_ok=True)
+        try:
+            parent_dir = Path(clean_path).parent
+            parent_dir.mkdir(parents=True, exist_ok=True)
+            # Test write access
+            test_file = parent_dir / ".write_test"
+            test_file.touch(exist_ok=True)
+            test_file.unlink(missing_ok=True)
+        except OSError:
+            # Filesystem is read-only (e.g. AWS Lambda / Vercel), fallback to /tmp
+            db_url = "sqlite:////tmp/agentguard.db"
 
 engine = create_engine(db_url, connect_args=connect_args, future=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, expire_on_commit=False)
@@ -30,10 +39,14 @@ _tables_created = False
 
 def init_db() -> None:
     global _tables_created
-    from agentguard.db import models  # noqa: F401
+    try:
+        from agentguard.db import models  # noqa: F401
 
-    Base.metadata.create_all(bind=engine)
-    _tables_created = True
+        Base.metadata.create_all(bind=engine)
+        _tables_created = True
+    except Exception as e:
+        import sys
+        print(f"Warning: Failed to create database tables: {e}", file=sys.stderr)
 
 
 def get_db() -> Generator[Session, None, None]:

@@ -21,10 +21,20 @@ async def lifespan(app: FastAPI):
 BASE_DIR = Path(__file__).resolve().parent
 app = FastAPI(title=get_settings().app_name, version="0.1.0", lifespan=lifespan)
 app.include_router(router)
-app.mount("/static", StaticFiles(directory=BASE_DIR / "ui" / "static"), name="static")
-templates = Jinja2Templates(directory=BASE_DIR / "ui" / "templates")
+
+static_dir = BASE_DIR / "ui" / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+templates_dir = BASE_DIR / "ui" / "templates"
+templates = Jinja2Templates(directory=templates_dir) if templates_dir.exists() else None
 
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse(request=request, name="index.html")
+    if templates and (templates_dir / "index.html").exists():
+        return templates.TemplateResponse(request=request, name="index.html")
+    index_file = BASE_DIR / "ui" / "templates" / "index.html"
+    if index_file.exists():
+        return HTMLResponse(content=index_file.read_text(encoding="utf-8"))
+    return HTMLResponse("<h1>AgentGuard is active</h1><p>API documentation available at <a href='/docs'>/docs</a></p>")

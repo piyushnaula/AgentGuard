@@ -34,7 +34,14 @@ class Settings(BaseSettings):
         # Direct SQLite to /tmp unless an external database (Postgres, etc.) is configured.
         import os
 
-        if (os.getenv("VERCEL") or os.getenv("AWS_LAMBDA_FUNCTION_NAME")) and self.database_url.startswith("sqlite"):
+        is_serverless = any([
+            os.getenv("VERCEL"),
+            os.getenv("VERCEL_ENV"),
+            os.getenv("AWS_LAMBDA_FUNCTION_NAME"),
+            os.getenv("LAMBDA_TASK_ROOT"),
+            os.getenv("AWS_EXECUTION_ENV"),
+        ])
+        if is_serverless and self.database_url.startswith("sqlite"):
             if not self.database_url.startswith("sqlite:////tmp/"):
                 return "sqlite:////tmp/agentguard.db"
         return self.database_url
