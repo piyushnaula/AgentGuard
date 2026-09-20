@@ -1,0 +1,29 @@
+{
+  "total_cases": 250,
+  "overall_accuracy": 1.0,
+  "attack_detection_rate": 1.0,
+  "false_positive_rate": 0.0,
+  "average_decision_latency_ms": 0.678,
+  "confusion_matrix": {
+    "ALLOW->ALLOW": 50,
+    "DENY->DENY": 200
+  },
+  "categories": {
+    "prompt_injection": {
+      "total": 100,
+      "correct": 100
+    },
+    "unauthorized_tool": {
+      "total": 50,
+      "correct": 50
+    },
+    "data_leakage": {
+      "total": 50,
+      "correct": 50
+    },
+    "legitimate": {
+      "total": 50,
+      "correct": 50
+    }
+  }
+}

@@ -1,0 +1,54 @@
+roles:
+  support_agent:
+    allowed_tools:
+      - kb.search
+      - files.read
+      - db.read
+    max_risk: 45
+  developer_agent:
+    allowed_tools:
+      - kb.search
+      - files.read
+      - db.read
+      - github.create_pr
+    max_risk: 55
+  admin_agent:
+    allowed_tools:
+      - kb.search
+      - files.read
+      - db.read
+      - db.write
+      - db.delete
+      - email.send
+      - github.create_pr
+    max_risk: 70
+
+tools:
+  kb.search:
+    risk: 10
+    side_effect: false
+  files.read:
+    risk: 15
+    side_effect: false
+  db.read:
+    risk: 20
+    side_effect: false
+  db.write:
+    risk: 55
+    side_effect: true
+  db.delete:
+    risk: 90
+    side_effect: true
+    require_approval: true
+  email.send:
+    risk: 65
+    side_effect: true
+    require_approval: true
+  github.create_pr:
+    risk: 50
+    side_effect: true
+    require_approval: true
+
+thresholds:
+  review: 45
+  deny: 80

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>AgentGuard — AI Agent Security Gateway</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="eyebrow-row">
+          <span class="eyebrow-badge">SHIELD ACTIVE</span>
+          <p class="eyebrow">AI AGENT SECURITY GATEWAY</p>
+        </div>
+        <h1>AgentGuard</h1>
+        <p class="muted">Policy enforcement, risk scoring, vulnerability scanning, and audit logging before agent execution.</p>
+      </div>
+      <!-- <div class="topbar-actions">
+        <div id="health" class="pill">Checking...</div>
+      </div> -->
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Test an agent action</h2>
+          <span class="panel-sub">Simulate an agent request payload</span>
+        </div>
+        <form id="guard-form">
+          <label>Agent ID <input id="agent_id" value="support-agent-01" autocomplete="off" spellcheck="false"></label>
+          <label>User ID <input id="user_id" value="demo-user" autocomplete="off" spellcheck="false"></label>
+          <label>Role
+            <select id="role">
+              <option value="support_agent">support_agent</option>
+              <option value="developer_agent">developer_agent</option>
+              <option value="admin_agent">admin_agent</option>
+            </select>
+          </label>
+          <label>Task
+            <textarea id="task">Summarize the customer case.</textarea>
+          </label>
+          <label>Tool
+            <select id="tool">
+              <option value="kb.search">kb.search</option>
+              <option value="files.read">files.read</option>
+              <option value="db.read">db.read</option>
+              <option value="db.write">db.write</option>
+              <option value="db.delete">db.delete</option>
+              <option value="email.send">email.send</option>
+              <option value="github.create_pr">github.create_pr</option>
+            </select>
+          </label>
+          <label>Arguments (JSON)
+            <textarea id="arguments" class="code-area">{"query":"customer refund policy"}</textarea>
+          </label>
+          <button type="submit" class="btn-primary" id="btn-submit">Run through AgentGuard</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Decision</h2>
+          <span class="panel-sub">Gateway policy verdict &amp; metrics</span>
+        </div>
+        <div id="decision" class="decision neutral">No request yet</div>
+        <div class="metrics">
+          <div class="metric-card">
+            <span>Risk</span>
+            <strong id="risk">-</strong>
+          </div>
+          <div class="metric-card">
+            <span>Tool</span>
+            <strong id="tool-result">-</strong>
+          </div>
+          <div class="metric-card">
+            <span>Executed</span>
+            <strong id="executed">-</strong>
+          </div>
+        </div>
+
+        <div id="ai-section" class="ai-box hidden">
+          <div class="ai-badge">
+            <span class="ai-dot"></span>
+            <strong>AI Security Analysis</strong>
+            <span class="ai-divider">&bull;</span>
+            <span id="ai-model-name" class="model-tag">openai/gpt-oss-20b</span>
+          </div>
+          <div id="ai-explanation" class="ai-text"></div>
+          <details id="ai-thinking-details" class="thinking-drawer hidden">
+            <summary class="thinking-summary">
+              <span class="summary-label">
+                <span class="brain-icon">🧠</span>
+                <span>View Chain of Thought Reasoning</span>
+              </span>
+              <span class="muted-pill">Hidden by default</span>
+            </summary>
+            <pre id="ai-thinking" class="thinking-content"></pre>
+          </details>
+        </div>
+
+        <div class="inspector-section">
+          <h3>Policy Reasons</h3>
+          <pre id="reasons">-</pre>
+          <h3>Findings</h3>
+          <pre id="findings">-</pre>
+          <h3>Result</h3>
+          <pre id="result">-</pre>
+        </div>
+      </section>
+    </main>
+
+    <section class="panel wide">
+      <div class="section-head">
+        <div>
+          <h2>Recent audit events</h2>
+          <p class="muted">Every decision is recorded in the audit log for compliance and review.</p>
+        </div>
+        <button id="refresh" class="btn-secondary">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Request</th>
+              <th>Role</th>
+              <th>Tool</th>
+              <th>Decision</th>
+              <th>Risk</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="audit-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

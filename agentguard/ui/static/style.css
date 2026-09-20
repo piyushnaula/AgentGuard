@@ -1,0 +1,767 @@
+/* ==========================================================================
+   AgentGuard Design System — Pure Black & Radiant Purple Theme
+   Fully responsive across Desktop, Tablet, and Mobile viewports
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Color Palette: Pure Black & Violet System */
+  --bg-pure-black: #000000;
+  --bg-canvas: #000000;
+  --bg-surface: #07030e;
+  --bg-surface-elevated: #0d061a;
+  --bg-surface-glass: rgba(13, 6, 26, 0.85);
+  --bg-input: #04010a;
+
+  /* Purple Accents */
+  --purple-glow: rgba(168, 85, 247, 0.35);
+  --purple-subtle: rgba(168, 85, 247, 0.12);
+  --purple-border: rgba(168, 85, 247, 0.24);
+  --purple-border-strong: #a855f7;
+  --purple-300: #d8b4fe;
+  --purple-400: #c084fc;
+  --purple-500: #a855f7;
+  --purple-600: #9333ea;
+  --purple-700: #7c3aed;
+  --purple-900: #3b0764;
+  --purple-950: #1a052e;
+
+  /* Typography */
+  --text-primary: #f5f3ff;
+  --text-secondary: #c4b5fd;
+  --text-muted: #8b7fa8;
+  --font-sans: 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Decisions */
+  --decision-allow-bg: rgba(16, 185, 129, 0.12);
+  --decision-allow-border: #10b981;
+  --decision-allow-text: #6ee7b7;
+  --decision-allow-glow: rgba(16, 185, 129, 0.25);
+
+  --decision-review-bg: rgba(245, 158, 11, 0.12);
+  --decision-review-border: #f59e0b;
+  --decision-review-text: #fcd34d;
+  --decision-review-glow: rgba(245, 158, 11, 0.25);
+
+  --decision-deny-bg: rgba(239, 68, 68, 0.12);
+  --decision-deny-border: #ef4444;
+  --decision-deny-text: #fca5a5;
+  --decision-deny-glow: rgba(239, 68, 68, 0.25);
+
+  --decision-neutral-bg: rgba(124, 58, 237, 0.12);
+  --decision-neutral-border: #7c3aed;
+  --decision-neutral-text: #d8b4fe;
+  --decision-neutral-glow: rgba(124, 58, 237, 0.25);
+
+  /* Elevation */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(124, 58, 237, 0.08);
+  --shadow-glow: 0 0 24px var(--purple-glow);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Scrollbar */
+  scrollbar-color: var(--purple-700) var(--bg-pure-black);
+  scrollbar-width: thin;
+}
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-pure-black);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-pure-black);
+  color: var(--text-primary);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse 60% 40% at 50% -10%, rgba(124, 58, 237, 0.18), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 85% 60%, rgba(147, 51, 234, 0.08), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Container Wrapper */
+.app-container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 36px);
+}
+
+/* ==========================================================================
+   Header & Topbar
+   ========================================================================== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: clamp(20px, 3.5vw, 36px) 0;
+  border-bottom: 1px solid var(--purple-border);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: rgba(168, 85, 247, 0.18);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--purple-300);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--purple-400);
+  margin: 0;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 4px 0 6px;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 24px rgba(192, 132, 252, 0.35);
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+h3 {
+  margin: 18px 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--purple-300);
+}
+
+.muted {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: clamp(13px, 1.8vw, 15px);
+  line-height: 1.5;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--purple-subtle);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--radius-pill);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.15);
+  transition: all 0.2s ease;
+}
+
+.pill::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+}
+
+/* ==========================================================================
+   Layout Grid & Panels
+   ========================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2.5vw, 28px);
+  padding: clamp(20px, 3vw, 32px) 0;
+}
+
+.panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(18px, 2.5vw, 28px);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.panel:hover {
+  border-color: rgba(168, 85, 247, 0.38);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 28px rgba(168, 85, 247, 0.12);
+}
+
+.panel-header {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--purple-border);
+}
+
+.panel-sub {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.wide {
+  margin-bottom: 40px;
+}
+
+/* ==========================================================================
+   Forms & Interactive Elements
+   ========================================================================== */
+label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+input, textarea, select {
+  width: 100%;
+  min-height: 44px; /* Touch-target compliance */
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  font-family: var(--font-sans);
+  font-size: 15px; /* >= 16px effective feel to prevent mobile auto-zoom */
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--purple-border-strong);
+  box-shadow: 0 0 0 3px var(--purple-glow);
+  background: #06020f;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c084fc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+select option {
+  background: #0e051d;
+  color: #f5f3ff;
+}
+
+textarea {
+  min-height: 94px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.code-area {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: #030107;
+  color: #e9d5ff;
+}
+
+button {
+  min-height: 44px; /* Touch target */
+  border: 0;
+  border-radius: var(--radius-md);
+  padding: 12px 22px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  width: 100%;
+  background: linear-gradient(135deg, var(--purple-700) 0%, var(--purple-600) 50%, var(--purple-500) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.38);
+  margin-top: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(168, 85, 247, 0.55);
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(168, 85, 247, 0.3);
+}
+
+.btn-secondary {
+  background: rgba(168, 85, 247, 0.12);
+  color: var(--purple-300);
+  border: 1px solid var(--purple-border);
+}
+
+.btn-secondary:hover {
+  background: rgba(168, 85, 247, 0.22);
+  color: #ffffff;
+  border-color: var(--purple-border-strong);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.25);
+}
+
+/* ==========================================================================
+   Decision Banner & Metrics
+   ========================================================================== */
+.decision {
+  padding: clamp(16px, 2.5vw, 22px);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.decision.allow, .mini.allow {
+  background: var(--decision-allow-bg);
+  border-color: var(--decision-allow-border);
+  color: var(--decision-allow-text);
+  box-shadow: 0 0 24px var(--decision-allow-glow);
+}
+
+.decision.review, .mini.review {
+  background: var(--decision-review-bg);
+  border-color: var(--decision-review-border);
+  color: var(--decision-review-text);
+  box-shadow: 0 0 24px var(--decision-review-glow);
+}
+
+.decision.deny, .mini.deny {
+  background: var(--decision-deny-bg);
+  border-color: var(--decision-deny-border);
+  color: var(--decision-deny-text);
+  box-shadow: 0 0 24px var(--decision-deny-glow);
+}
+
+.decision.checking, .decision.neutral {
+  background: var(--decision-neutral-bg);
+  border-color: var(--decision-neutral-border);
+  color: var(--decision-neutral-text);
+  box-shadow: 0 0 24px var(--decision-neutral-glow);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.metric-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--purple-border);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.metric-card:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  transform: translateY(-1px);
+}
+
+.metric-card span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(16px, 2vw, 20px);
+  color: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   AI Security Analysis & Chain of Thought
+   ========================================================================== */
+.ai-box {
+  margin: 20px 0;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, rgba(28, 10, 52, 0.75), rgba(10, 3, 20, 0.9));
+  border: 1px solid var(--purple-border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 28px rgba(168, 85, 247, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.ai-badge {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--purple-300);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ai-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--purple-400);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--purple-400);
+  display: inline-block;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.ai-divider {
+  color: var(--purple-border);
+}
+
+.model-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--purple-400);
+  background: rgba(168, 85, 247, 0.16);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.ai-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 4px 0;
+}
+
+.thinking-drawer {
+  margin-top: 14px;
+  background: #05010b;
+  border: 1px solid var(--purple-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.thinking-drawer[open] {
+  border-color: rgba(168, 85, 247, 0.45);
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.15);
+}
+
+.thinking-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  background: #0c0418;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.thinking-summary:hover {
+  color: #ffffff;
+  background: #15082a;
+}
+
+.summary-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.muted-pill {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--purple-300);
+  white-space: nowrap;
+}
+
+.thinking-content {
+  margin: 0;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  color: #e9d5ff;
+  background: #020005;
+  border-top: 1px solid var(--purple-border);
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+   Code Pre Blocks & Inspector
+   ========================================================================== */
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #030107;
+  border: 1px solid var(--purple-border);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: #f3e8ff;
+  line-height: 1.5;
+}
+
+.inspector-section pre {
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   Audit Table & Table Wrap
+   ========================================================================== */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--purple-border);
+  background: #030107;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Ensures clean layout with scroll on small screens */
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.12);
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+th {
+  color: var(--purple-300);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  background: #0a0314;
+}
+
+tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+  background: rgba(168, 85, 247, 0.07);
+}
+
+.mini {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Utilities & Scrollbar Styling
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+
+/* WebKit scrollbar fallback */
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #581c87;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7c3aed;
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints (Desktop & Mobile Compatibility)
+   ========================================================================== */
+
+/* Tablets and below (<= 960px) */
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 0 20px;
+  }
+
+  .topbar-actions {
+    align-self: flex-start;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-head button {
+    width: 100%;
+  }
+}
+
+/* Mobile Screens (<= 600px) */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 0 14px;
+  }
+
+  .topbar {
+    padding: 18px 0;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .panel {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  /* Keep metrics readable without overflowing */
+  .metrics {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .metric-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+  }
+
+  .metric-card strong {
+    margin-top: 0;
+    font-size: 16px;
+  }
+
+  .decision {
+    font-size: 22px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+
+  .ai-box {
+    padding: 14px;
+  }
+
+  input, textarea, select {
+    font-size: 16px; /* Prevents auto-zoom in iOS Safari */
+  }
+
+  .btn-primary {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+}
